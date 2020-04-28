@@ -4,12 +4,14 @@
 #
 Name     : qsstv
 Version  : 9.4.4
-Release  : 1
+Release  : 2
 URL      : http://users.telenet.be/on4qz/qsstv/downloads/qsstv_9.4.4.tar.gz
 Source0  : http://users.telenet.be/on4qz/qsstv/downloads/qsstv_9.4.4.tar.gz
 Summary  : No detailed summary available
 Group    : Development/Tools
 License  : GPL-3.0
+Requires: qsstv-bin = %{version}-%{release}
+Requires: qsstv-data = %{version}-%{release}
 Requires: qsstv-license = %{version}-%{release}
 BuildRequires : alsa-lib-dev
 BuildRequires : buildreq-qmake
@@ -26,10 +28,29 @@ BuildRequires : pkgconfig(libopenjp2)
 BuildRequires : pkgconfig(libpulse)
 BuildRequires : pkgconfig(libv4l2)
 BuildRequires : pkgconfig(libv4lconvert)
+Patch1: 0001-Set-prefix-to-usr.patch
 
 %description
 For the full manual please go to
 http://users.telenet.be/on4qz/qsstv/manual/index.html
+
+%package bin
+Summary: bin components for the qsstv package.
+Group: Binaries
+Requires: qsstv-data = %{version}-%{release}
+Requires: qsstv-license = %{version}-%{release}
+
+%description bin
+bin components for the qsstv package.
+
+
+%package data
+Summary: data components for the qsstv package.
+Group: Data
+
+%description data
+data components for the qsstv package.
+
 
 %package license
 Summary: license components for the qsstv package.
@@ -42,6 +63,7 @@ license components for the qsstv package.
 %prep
 %setup -q -n qsstv_9.4.4
 cd %{_builddir}/qsstv_9.4.4
+%patch1 -p1
 
 %build
 export http_proxy=http://127.0.0.1:9/
@@ -54,7 +76,7 @@ test -r config.log && cat config.log
 make  %{?_smp_mflags}
 
 %install
-export SOURCE_DATE_EPOCH=1588109616
+export SOURCE_DATE_EPOCH=1588110418
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/qsstv
 cp %{_builddir}/qsstv_9.4.4/COPYING %{buildroot}/usr/share/package-licenses/qsstv/a594e9581fbfae392fc70fc1974aa6e1169bbbe8
@@ -62,6 +84,14 @@ cp %{_builddir}/qsstv_9.4.4/COPYING %{buildroot}/usr/share/package-licenses/qsst
 
 %files
 %defattr(-,root,root,-)
+
+%files bin
+%defattr(-,root,root,-)
+/usr/bin/qsstv
+
+%files data
+%defattr(-,root,root,-)
+/usr/share/applications/qsstv.desktop
 
 %files license
 %defattr(0644,root,root,0755)
