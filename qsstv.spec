@@ -4,7 +4,7 @@
 #
 Name     : qsstv
 Version  : 9.4.4
-Release  : 2
+Release  : 3
 URL      : http://users.telenet.be/on4qz/qsstv/downloads/qsstv_9.4.4.tar.gz
 Source0  : http://users.telenet.be/on4qz/qsstv/downloads/qsstv_9.4.4.tar.gz
 Summary  : No detailed summary available
