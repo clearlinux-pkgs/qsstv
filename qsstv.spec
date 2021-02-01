@@ -4,7 +4,7 @@
 #
 Name     : qsstv
 Version  : 9.4.4
-Release  : 3
+Release  : 4
 URL      : http://users.telenet.be/on4qz/qsstv/downloads/qsstv_9.4.4.tar.gz
 Source0  : http://users.telenet.be/on4qz/qsstv/downloads/qsstv_9.4.4.tar.gz
 Summary  : No detailed summary available
@@ -76,7 +76,7 @@ test -r config.log && cat config.log
 make  %{?_smp_mflags}
 
 %install
-export SOURCE_DATE_EPOCH=1588110418
+export SOURCE_DATE_EPOCH=1612217095
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/qsstv
 cp %{_builddir}/qsstv_9.4.4/COPYING %{buildroot}/usr/share/package-licenses/qsstv/a594e9581fbfae392fc70fc1974aa6e1169bbbe8

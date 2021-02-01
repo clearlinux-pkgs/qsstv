@@ -8,9 +8,10 @@ libc.so.6
 libfftw3.so.3
 libfftw3f.so.3
 libgcc_s.so.1
-libhamlib.so.2
+libhamlib.so.4
 libm.so.6
 libopenjp2.so.7
+libpthread.so.0
 libpulse-simple.so.0
 libpulse.so.0
 libstdc++.so.6
