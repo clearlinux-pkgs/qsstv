@@ -4,7 +4,7 @@
 #
 Name     : qsstv
 Version  : 9.4.4
-Release  : 4
+Release  : 5
 URL      : http://users.telenet.be/on4qz/qsstv/downloads/qsstv_9.4.4.tar.gz
 Source0  : http://users.telenet.be/on4qz/qsstv/downloads/qsstv_9.4.4.tar.gz
 Summary  : No detailed summary available
@@ -28,7 +28,6 @@ BuildRequires : pkgconfig(libopenjp2)
 BuildRequires : pkgconfig(libpulse)
 BuildRequires : pkgconfig(libv4l2)
 BuildRequires : pkgconfig(libv4lconvert)
-Patch1: 0001-Set-prefix-to-usr.patch
 
 %description
 For the full manual please go to
@@ -63,7 +62,6 @@ license components for the qsstv package.
 %prep
 %setup -q -n qsstv_9.4.4
 cd %{_builddir}/qsstv_9.4.4
-%patch1 -p1
 
 %build
 export http_proxy=http://127.0.0.1:9/
@@ -71,12 +69,12 @@ export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
 export GCC_IGNORE_WERROR=1
-%qmake -config ltcg -config fat-static-lto
+%qmake -config ltcg -config fat-static-lto  PREFIX=/usr
 test -r config.log && cat config.log
 make  %{?_smp_mflags}
 
 %install
-export SOURCE_DATE_EPOCH=1612217095
+export SOURCE_DATE_EPOCH=1614277303
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/qsstv
 cp %{_builddir}/qsstv_9.4.4/COPYING %{buildroot}/usr/share/package-licenses/qsstv/a594e9581fbfae392fc70fc1974aa6e1169bbbe8
