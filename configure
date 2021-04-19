@@ -1,1 +1,2 @@
 PREFIX=/usr
+INSTALLS+="dox data shortcutfiles"
