@@ -1,2 +1,3 @@
 PREFIX=/usr
 INSTALLS+="dox data shortcutfiles"
+CONFIG+="debug"

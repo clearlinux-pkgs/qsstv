@@ -4,7 +4,7 @@
 #
 Name     : qsstv
 Version  : 9.5.8
-Release  : 7
+Release  : 8
 URL      : http://users.telenet.be/on4qz/qsstv/downloads/qsstv_9.5.8.tar.gz
 Source0  : http://users.telenet.be/on4qz/qsstv/downloads/qsstv_9.5.8.tar.gz
 Summary  : No detailed summary available
@@ -15,7 +15,9 @@ Requires: qsstv-data = %{version}-%{release}
 Requires: qsstv-license = %{version}-%{release}
 BuildRequires : alsa-lib-dev
 BuildRequires : buildreq-qmake
+BuildRequires : doxygen
 BuildRequires : fftw-dev
+BuildRequires : graphviz
 BuildRequires : mesa-dev
 BuildRequires : pkgconfig(Qt5Core)
 BuildRequires : pkgconfig(Qt5Gui)
@@ -27,6 +29,9 @@ BuildRequires : pkgconfig(libopenjp2)
 BuildRequires : pkgconfig(libpulse)
 BuildRequires : pkgconfig(libv4l2)
 BuildRequires : pkgconfig(libv4lconvert)
+BuildRequires : qwt-dev
+Patch1: 0001-Replace-dep-libqwt-qt5-with-libqwt.patch
+Patch2: 0002-Filter-out-fewer-sound-devices.patch
 
 %description
 For the full manual please go to
@@ -61,6 +66,8 @@ license components for the qsstv package.
 %prep
 %setup -q -n qsstv
 cd %{_builddir}/qsstv
+%patch1 -p1
+%patch2 -p1
 
 %build
 export http_proxy=http://127.0.0.1:9/
@@ -69,12 +76,13 @@ export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
 export GCC_IGNORE_WERROR=1
 %qmake -config ltcg -config fat-static-lto  PREFIX=/usr \
-INSTALLS+="dox data shortcutfiles"
+INSTALLS+="dox data shortcutfiles" \
+CONFIG+="debug"
 test -r config.log && cat config.log
 make  %{?_smp_mflags}
 
 %install
-export SOURCE_DATE_EPOCH=1631649968
+export SOURCE_DATE_EPOCH=1644354742
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/qsstv
 cp %{_builddir}/qsstv/COPYING %{buildroot}/usr/share/package-licenses/qsstv/a594e9581fbfae392fc70fc1974aa6e1169bbbe8

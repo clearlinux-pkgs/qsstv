@@ -1,4 +1,6 @@
 9.5.8
 alsa-lib-dev
+doxygen
 fftw-dev
+graphviz
 mesa-dev

@@ -1,0 +1,19 @@
+From 6c1aeaae9833a93011ce7fb2f034813265334af9 Mon Sep 17 00:00:00 2001
+From: "Brett T. Warden" <brett.t.warden@intel.com>
+Date: Tue, 8 Feb 2022 12:11:08 -0800
+Subject: [PATCH 1/2] Replace dep libqwt-qt5 with libqwt
+
+---
+ qsstv.pro | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/qsstv.pro b/qsstv.pro
+index b6df03a1ea40..c4dbdd79a05b 100644
+--- a/qsstv.pro
++++ b/qsstv.pro
+@@ -609,1 +609,1 @@ HEADERS  += scope/scopeoffset.h \
+-LIBS += -lqwt-qt5
++LIBS += -lqwt
+-- 
+2.35.1
+

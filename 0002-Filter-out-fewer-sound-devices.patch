@@ -1,0 +1,33 @@
+From c9d6ce8896c8d77d32ed39dcee1d47d605775a1a Mon Sep 17 00:00:00 2001
+From: "Brett T. Warden" <brett.t.warden@intel.com>
+Date: Tue, 8 Feb 2022 11:07:09 -0800
+Subject: [PATCH 2/2] Filter out fewer sound devices
+
+This normally excludes a lot of audio devices. Trim down the filter list
+to the bare minimum, in case some of these devices are the only audio
+ports available on a system.
+
+See:
+https://community.clearlinux.org/t/hacked-my-way-through-a-problem-how-to-clean-up/7285
+---
+ sound/soundalsa.cpp | 7 +------
+ 1 file changed, 1 insertion(+), 6 deletions(-)
+
+diff --git a/sound/soundalsa.cpp b/sound/soundalsa.cpp
+index 4e0edb15cf04..952cc06886f8 100644
+--- a/sound/soundalsa.cpp
++++ b/sound/soundalsa.cpp
+@@ -364,9 +364,4 @@ void getCardList(QStringList &alsaInputList, QStringList &alsaOutputList)
+       if(
+-         !deviceName.contains("surround",Qt::CaseInsensitive)
+-         && !deviceName.contains("dmix",Qt::CaseInsensitive)
+-         && !deviceName.contains("front",Qt::CaseInsensitive)
+-         && !deviceName.contains("plughw",Qt::CaseInsensitive)
++            !deviceName.contains("dmix",Qt::CaseInsensitive)
+          && !deviceName.contains("null",Qt::CaseInsensitive)
+-         && !deviceName.contains("hdmi",Qt::CaseInsensitive)
+-         && !deviceName.contains("sysdefault",Qt::CaseInsensitive)
+          && !deviceName.contains("dsnoop",Qt::CaseInsensitive)
+-- 
+2.35.1
+
