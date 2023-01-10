@@ -4,9 +4,9 @@
 #
 Name     : qsstv
 Version  : 9.5.8
-Release  : 9
-URL      : http://users.telenet.be/on4qz/qsstv/downloads/qsstv_9.5.8.tar.gz
-Source0  : http://users.telenet.be/on4qz/qsstv/downloads/qsstv_9.5.8.tar.gz
+Release  : 10
+URL      : https://www.qsl.net/o/on4qz/qsstv/downloads/qsstv_9.5.8.tar.gz
+Source0  : https://www.qsl.net/o/on4qz/qsstv/downloads/qsstv_9.5.8.tar.gz
 Summary  : No detailed summary available
 Group    : Development/Tools
 License  : GPL-3.0
@@ -30,6 +30,9 @@ BuildRequires : pkgconfig(libpulse)
 BuildRequires : pkgconfig(libv4l2)
 BuildRequires : pkgconfig(libv4lconvert)
 BuildRequires : qwt-dev
+# Suppress stripping binaries
+%define __strip /bin/true
+%define debug_package %{nil}
 Patch1: 0001-Replace-dep-libqwt-qt5-with-libqwt.patch
 Patch2: 0002-Filter-out-fewer-sound-devices.patch
 
@@ -75,6 +78,10 @@ export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
 export GCC_IGNORE_WERROR=1
+export CFLAGS="$CFLAGS -fdebug-types-section -femit-struct-debug-baseonly -g1 -gno-column-info -gno-variable-location-views -gz "
+export FCFLAGS="$FFLAGS -fdebug-types-section -femit-struct-debug-baseonly -g1 -gno-column-info -gno-variable-location-views -gz "
+export FFLAGS="$FFLAGS -fdebug-types-section -femit-struct-debug-baseonly -g1 -gno-column-info -gno-variable-location-views -gz "
+export CXXFLAGS="$CXXFLAGS -fdebug-types-section -femit-struct-debug-baseonly -g1 -gno-column-info -gno-variable-location-views -gz "
 %qmake -config ltcg -config fat-static-lto  PREFIX=/usr \
 INSTALLS+="dox data shortcutfiles" \
 CONFIG+="debug"
@@ -82,10 +89,10 @@ test -r config.log && cat config.log
 make  %{?_smp_mflags}
 
 %install
-export SOURCE_DATE_EPOCH=1644354742
+export SOURCE_DATE_EPOCH=1673393547
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/qsstv
-cp %{_builddir}/qsstv/COPYING %{buildroot}/usr/share/package-licenses/qsstv/a594e9581fbfae392fc70fc1974aa6e1169bbbe8
+cp %{_builddir}/qsstv/COPYING %{buildroot}/usr/share/package-licenses/qsstv/a594e9581fbfae392fc70fc1974aa6e1169bbbe8 || :
 %make_install
 
 %files
